@@ -302,10 +302,12 @@ public class ConfigurableRootQueryImpl<T extends Table<?>, R>
 
     private List<R> executeImpl(Connection con) {
         TypedQueryData data = getData();
+        // limit优化
         if (data.limit == 0) {
             return Collections.emptyList();
         }
         JSqlClientImplementor sqlClient = getBaseQuery().getSqlClient();
+        // 执行前预处理
         Tuple3<String, List<Object>, List<Integer>> sqlResult = preExecute(new SqlBuilder(new AstContext(sqlClient)));
         return Selectors.select(
                 sqlClient,
@@ -361,6 +363,7 @@ public class ConfigurableRootQueryImpl<T extends Table<?>, R>
     private Tuple3<String, List<Object>, List<Integer>> preExecute(SqlBuilder builder) {
         if (!getBaseQuery().isFrozen()) {
             getBaseQuery().applyVirtualPredicates(builder.getAstContext());
+            // 执行全局过滤器
             getBaseQuery().applyGlobalFilters(builder.getAstContext(), getBaseQuery().getContext().getFilterLevel(), getData().selections);
         }
         UseTableVisitor visitor = new UseTableVisitor(builder.getAstContext());

@@ -12,6 +12,7 @@ import org.babyfish.jimmer.sql.ast.table.Table
 import org.babyfish.jimmer.sql.meta.Storage
 import kotlin.reflect.KProperty1
 
+// 排序dsl
 @DslScope
 class SortDsl<E: Any>(
     private val orders: MutableList<Order> = mutableListOf()

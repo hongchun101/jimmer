@@ -54,6 +54,7 @@ public class Selectors {
                         }
                 )
         );
+        // 处理fetcher
         FetcherUtil.fetch(sqlClient, con, selections, rows);
         return rows;
     }
