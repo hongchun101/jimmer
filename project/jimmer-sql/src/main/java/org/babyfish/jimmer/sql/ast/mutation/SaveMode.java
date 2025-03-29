@@ -9,6 +9,7 @@ import org.babyfish.jimmer.sql.exception.SaveException;
  *
  * @see AssociatedSaveMode
  */
+// 保存模式 (只影响根对象, 不影响关联对象)
 public enum SaveMode {
 
     /**

@@ -225,12 +225,14 @@ public class EntitiesImpl implements Entities {
     }
 
     @SuppressWarnings("unchecked")
+    // findById类接口的底层方法
     private <E> List<E> findByIds(
             Class<E> type,
             Fetcher<E> fetcher,
             Iterable<?> ids,
             Connection con
     ) {
+        // id去重
         Set<Object> distinctIds = distinctIds(ids);
         if (distinctIds.isEmpty()) {
             return Collections.emptyList();
@@ -242,6 +244,7 @@ public class EntitiesImpl implements Entities {
 
         ImmutableType immutableType = ImmutableType.get(type);
         Class<?> idClass = immutableType.getIdProp().getElementClass();
+        // 验证id的类型是否正确
         for (Object id : distinctIds) {
             if (Converters.tryConvert(id, idClass) == null) {
                 throw new IllegalArgumentException(
@@ -256,6 +259,7 @@ public class EntitiesImpl implements Entities {
             }
         }
         Cache<Object, E> cache = sqlClient.getCaches().getObjectCache(immutableType);
+        // 如果存在cache 则从cache中获取
         if (cache != null) {
             Collection<E> cachedEntities = cache.getAll(
                     distinctIds,
@@ -338,6 +342,7 @@ public class EntitiesImpl implements Entities {
         ConfigurableRootQuery<?, E> query = Queries.createQuery(
                 sqlClient, immutableType, purpose, FilterLevel.DEFAULT, (q, table) -> {
                     Expression<Object> idProp = table.get(immutableType.getIdProp().getName());
+                    // where条件优化 如果只有一个id则使用eq 否则使用in
                     if (distinctIds.size() == 1) {
                         q.where(idProp.eq(distinctIds.iterator().next()));
                     } else {
@@ -349,15 +354,18 @@ public class EntitiesImpl implements Entities {
         if (forUpdate) {
             query = query.forUpdate(true);
         }
+        // 执行查询
         return query.execute(con);
     }
 
     @SuppressWarnings("unchecked")
+    // output dto使用的底层方法
     private <E> List<E> findByIds(
             DtoMetadata<?, ?> metadata,
             Iterable<?> ids,
             Connection con
     ) {
+        // id去重
         Set<Object> distinctIds = distinctIds(ids);
         if (distinctIds.isEmpty()) {
             return Collections.emptyList();

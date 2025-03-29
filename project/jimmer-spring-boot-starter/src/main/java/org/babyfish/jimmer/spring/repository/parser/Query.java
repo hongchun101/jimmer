@@ -88,6 +88,7 @@ public class Query {
         return new QueryParser(ctx, type).parse(source, allowProjection);
     }
 
+    // 查询动作
     public enum Action {
         FIND,
         COUNT,
