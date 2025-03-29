@@ -1,5 +1,6 @@
 package org.babyfish.jimmer.sql.ast;
 
+// 模糊查询模式
 public enum LikeMode {
 
     EXACT(true, true),

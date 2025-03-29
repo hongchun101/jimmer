@@ -18,6 +18,7 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KProperty1
 
 @DslScope
+// 保存指令的部分dsl
 interface KSaveCommandPartialDsl {
 
     fun setAssociatedMode(prop: KProperty1<*, *>, mode: AssociatedSaveMode)

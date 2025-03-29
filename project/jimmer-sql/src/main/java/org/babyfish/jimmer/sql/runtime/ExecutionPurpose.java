@@ -2,11 +2,16 @@ package org.babyfish.jimmer.sql.runtime;
 
 import org.babyfish.jimmer.sql.ast.mutation.QueryReason;
 
+// 执行目的
 public interface ExecutionPurpose {
 
+    // 查询
     ExecutionPurpose QUERY = new SimpleExecutionPurpose(Type.QUERY);
+    // 更新
     ExecutionPurpose UPDATE = new SimpleExecutionPurpose(Type.UPDATE);
+    // 加载
     ExecutionPurpose LOAD = new SimpleExecutionPurpose(Type.LOAD);
+    // 导出
     ExecutionPurpose EXPORT = new SimpleExecutionPurpose(Type.EXPORT);
     ExecutionPurpose MUTATE = new SimpleExecutionPurpose(Type.MUTATE);
     ExecutionPurpose EVICT = new SimpleExecutionPurpose(Type.EVICT);
@@ -56,6 +61,7 @@ class SimpleExecutionPurpose implements ExecutionPurpose {
     }
 }
 
+// 删除目的
 class DeletePurpose implements ExecutionPurpose.Command {
 
     private final QueryReason queryReason;
@@ -96,6 +102,7 @@ class DeletePurpose implements ExecutionPurpose.Command {
     }
 }
 
+// 命令目的
 class CommandPurpose implements ExecutionPurpose.Command {
 
     private final QueryReason queryReason;

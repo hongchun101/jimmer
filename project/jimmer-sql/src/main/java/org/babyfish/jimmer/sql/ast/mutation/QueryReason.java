@@ -19,6 +19,10 @@ import org.babyfish.jimmer.sql.exception.SaveException;
  * may also need to execute some select statements in certain scenarios.
  * This enumeration includes these cases as well.</p>
  */
+
+/**
+ * 查询原因
+ */
 public enum QueryReason {
 
     NONE,

@@ -23,6 +23,7 @@ class TypedQueryData {
 
     final List<Selection<?>> oldSelections;
 
+    // 去重标记
     final boolean distinct;
 
     final int limit;
