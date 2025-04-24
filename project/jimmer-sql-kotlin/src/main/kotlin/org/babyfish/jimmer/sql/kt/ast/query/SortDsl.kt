@@ -18,6 +18,7 @@ class SortDsl<E: Any>(
     private val orders: MutableList<Order> = mutableListOf()
 ) {
 
+    // 升序
     fun asc(prop: KProperty1<E, *>, nullOrderMode: NullOrderMode = NullOrderMode.UNSPECIFIED) {
         val immutableProp = prop.toImmutableProp()
         if (!immutableProp.isScalar(TargetLevel.OBJECT)) {
@@ -29,6 +30,7 @@ class SortDsl<E: Any>(
         orders += Order(immutableProp, OrderMode.ASC, nullOrderMode)
     }
 
+    // 降序
     fun desc(prop: KProperty1<E, *>, nullOrderMode: NullOrderMode = NullOrderMode.UNSPECIFIED) {
         val immutableProp = prop.toImmutableProp()
         if (!immutableProp.isScalar(TargetLevel.OBJECT)) {

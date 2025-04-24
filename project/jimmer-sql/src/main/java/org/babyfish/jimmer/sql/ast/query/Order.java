@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+// 排序
 public class Order {
 
     private static final Pattern SEPARATOR_PATTERN = Pattern.compile("[,;]");
@@ -23,8 +24,10 @@ public class Order {
 
     private final Expression<?> expression;
 
+    // 排序模式 升序还是降序
     private final OrderMode orderMode;
 
+    // null排序模式
     private final NullOrderMode nullOrderMode;
 
     public Order(Expression<?> expression, OrderMode orderMode, NullOrderMode nullOrderMode) {
