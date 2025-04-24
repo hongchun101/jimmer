@@ -12,12 +12,14 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 
+// 最终的查询执行器
 public class Selectors {
 
     private static final AtomicLong CURSOR_ID_SEQUENCE = new AtomicLong();
 
     private Selectors() {}
 
+    // 简单查询
     @SuppressWarnings("unchecked")
     public static <R> List<R> select(
             JSqlClientImplementor sqlClient,
@@ -59,6 +61,7 @@ public class Selectors {
         return rows;
     }
 
+    // 游标查询
     @SuppressWarnings("unchecked")
     public static <R> void forEach(
             JSqlClientImplementor sqlClient,
